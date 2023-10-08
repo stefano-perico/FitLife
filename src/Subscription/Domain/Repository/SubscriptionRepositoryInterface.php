@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Subscription\Domain\Repository;
+namespace Subscription\Domain\Repository;
 
-use App\Subscription\Domain\Model\Subscription;
+use Subscription\Domain\Model\Subscription;
 
 interface SubscriptionRepositoryInterface
 {

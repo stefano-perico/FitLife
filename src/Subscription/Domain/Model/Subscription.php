@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Subscription\Domain\Model;
+namespace Subscription\Domain\Model;
 
 class Subscription {
     

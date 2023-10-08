@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Subscription\Domain\UseCase;
+namespace Subscription\Domain\UseCase;
 
-use App\Subscription\Domain\Model\Subscription;
+use Subscription\Domain\Model\Subscription;
 
 interface RenewSubscriptionInterface
 {
