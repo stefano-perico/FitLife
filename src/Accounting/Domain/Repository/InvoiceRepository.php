@@ -1,6 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
 namespace App\Accounting\Domain\Repository;
 
-use App\Accounting\Domain\Entity\Invoice;
+use App\Accounting\Domain\Model\Invoice;
 
 interface InvoiceRepositoryInterface
 {
