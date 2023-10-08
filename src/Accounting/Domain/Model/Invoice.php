@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Accounting\Domain\Model;
+namespace Accounting\Domain\Model;
 
 class Invoice
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Accounting\Domain\Repository;
+namespace Accounting\Domain\Repository;
 
-use App\Accounting\Domain\Model\Invoice;
+use Accounting\Domain\Model\Invoice;
 
 interface InvoiceRepositoryInterface
 {
