@@ -29,7 +29,7 @@
             "App\\": "src/",
             "Accounting\\": "src/Accounting/",
             "Subscription\\": "src/Subscription/",
-            "UserProfiles\\": "src/UserProfiles/",
+            "UserProfile\\": "src/UserProfile/",
             "Workout\\": "src/Workout/"
         }
     },
