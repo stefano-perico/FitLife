@@ -30,6 +30,7 @@
             "Accounting\\": "src/Accounting/",
             "Subscription\\": "src/Subscription/",
             "UserProfile\\": "src/UserProfile/",
+            "Shared\\": "src/Shared/",
             "Workout\\": "src/Workout/"
         }
     },
