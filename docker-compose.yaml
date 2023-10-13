@@ -13,13 +13,19 @@ services:
       POSTGRES_DB: ${POSTGRES_USER:-symfony}
     volumes:
       - db-data:/var/lib/postgresql/data:rw
-
-  app:
+  php:
     build:
-      context: ./.docker
-    environment:
-      - APP_ENV=${APP_ENV:-dev}
-      - APP_SECRET=${APP_SECRET:-ChangeMe}
-      - DATABASE_URL=postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-ChangeMe}@database:5432/${POSTGRES_DB:-symfony}
-#    volumes:
-#      - ./:/var/www:cached
+      context: ./.docker/php
+    volumes:
+      - ./:/var/www/html:delegated
+
+  apache:
+    image: httpd:latest
+    depends_on:
+      - php
+      - database
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html:delegated
+      - ./.docker/apache/apache.conf:/etc/apache2/sites-available/000-default.conf
