@@ -21,5 +21,9 @@ services:
       - APP_ENV=${APP_ENV:-dev}
       - APP_SECRET=${APP_SECRET:-ChangeMe}
       - DATABASE_URL=postgresql://${POSTGRES_USER:-app}:${POSTGRES_PASSWORD:-ChangeMe}@database:5432/${POSTGRES_DB:-symfony}
-#    volumes:
-#      - ./:/var/www:cached
+    ports:
+      - "8081:80"
+    volumes:
+      - ./:/var/www/html:cached
+      - ~/.ssh:/home/dockeruser/.ssh:rw
+      - ./:/srv/app:rw

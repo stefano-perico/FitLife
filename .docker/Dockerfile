@@ -2,11 +2,19 @@ ARG PHP_VERSION=8.2
 
 FROM php:${PHP_VERSION}-apache
 
-# Install PHP dependencies
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+RUN a2enmod rewrite
 
-RUN chmod +x /usr/local/bin/install-php-extensions && \
-    install-php-extensions pdo_pgsql intl
+# Install PHP dependencies
+RUN apt-get update && apt-get install -y freetype* build-essential zlib1g-dev g++ git libpq-dev libicu-dev zip libzip-dev libpng-dev libjpeg62-turbo-dev libfreetype6-dev libonig-dev locales zsh wget curl vim jpegoptim optipng pngquant gifsicle nodejs npm yarn \
+    && docker-php-ext-install intl opcache pdo pdo_pgsql \
+    && pecl install apcu \
+    && docker-php-ext-enable apcu \
+    && docker-php-ext-configure zip \
+    && docker-php-ext-install zip
+
+RUN apt-get update \
+    && apt-get install -y libxml2-dev libcurl4-openssl-dev \
+    pkg-config libssl-dev
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --disable-tls
@@ -18,22 +26,17 @@ RUN apt update && apt install -yqq nodejs npm
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
-RUN ls
 # Copy application files
-COPY . /var/www/
 
 # Copy Apache configuration
 COPY ./apache.conf /etc/apache2/sites-available/000-default.conf
 
-# Install Symfony composer dependencies
-RUN cd /var/www
-RUN composer install --optimize-autoloader --no-interaction
-
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/html
 
-# Execute script docker.sh
 ENTRYPOINT ["bash", ".docker/docker.sh"]
+
+CMD ["apache2-foreground"]
 
 # Expose port 80 and start Apache
 EXPOSE 80
